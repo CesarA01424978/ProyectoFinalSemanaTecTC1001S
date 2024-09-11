@@ -3,10 +3,10 @@
 #include <DHT.h>
 
 // Configuración del WiFi y MQTT
-const char* ssid = "tu_SSID";           // Reemplaza con tu SSID
-const char* password = "tu_password";   // Reemplaza con tu contraseña
-const char* mqttServer = "broker.hivemq.com";  // Reemplaza con tu servidor MQTT
-const int mqttPort = 1883;
+const char* ssid = "Galaxy A55 5G 1BE3";            // Nombre Wifi
+const char* password = "2sf7rnhk3czgt9h";           // Reemplaza con tu contraseña
+const char* mqttServer = "test.mosquitto.org";      // Reemplaza con tu servidor MQTT
+const int mqttPort = 1883;                          //Sin cifrado
 const char* mqttUser = "";  // Si el servidor requiere usuario
 const char* mqttPassword = "";  // Si el servidor requiere contraseña
 
