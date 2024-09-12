@@ -85,15 +85,12 @@ void loop() {
 
   // Publicar los datos
   String tempPayload = "Temperatura: " + String(t) + " °C";
-  String humPayload = "Humedad: " + String(h) + " %";
   String lightPayload = "Nivel de Luz: " + String(lightLevel);
 
   client.publish("sensor/temperatura", tempPayload.c_str());
-  client.publish("sensor/humedad", humPayload.c_str());
   client.publish("sensor/luz", lightPayload.c_str());
 
   Serial.println(tempPayload);
-  Serial.println(humPayload);
   Serial.println(lightPayload);
 
   // Esperar antes de enviar de nuevo
