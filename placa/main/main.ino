@@ -5,7 +5,9 @@
 // Configuración del WiFi y MQTT
 const char* ssid = "Galaxy A55 5G 1BE3";            // Nombre Wifi
 const char* password = "2sf7rnhk3czgt9h";           // Reemplaza con tu contraseña
-const char* mqttServer = "test.mosquitto.org";      // Reemplaza con tu servidor MQTT
+//const char* ssid = "Samsung Galaxy";            // Nombre Wifi
+//const char* password = "98765432";           // Reemplaza con tu contraseña
+const char* mqttServer = "54.146.179.44";      // Reemplaza con tu servidor MQTT
 const int mqttPort = 1883;                          //Sin cifrado
 const char* mqttUser = "";  // Si el servidor requiere usuario
 const char* mqttPassword = "";  // Si el servidor requiere contraseña
@@ -14,7 +16,7 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 
 // Define el tipo de sensor y el pin de datos
-#define DHTPIN 4        // Pin al que conectaste el sensor (D4 en este caso)
+#define DHTPIN 35        // Pin al que conectaste el sensor (D4 en este caso)
 #define DHTTYPE DHT11   // Según el sensor que se use
 DHT dht(DHTPIN, DHTTYPE);
 
