@@ -1,13 +1,13 @@
 #include <DHT.h>
 
 // Define el tipo de sensor y el pin de datos
-#define DHTPIN 4     // Pin al que conectaste el sensor (D4 en este caso)
-#define DHTTYPE DHT22   // o DHT11 según el sensor que uses
+#define DHTPIN 4        // Pin al que conectaste el sensor (D4 en este caso)
+#define DHTTYPE DHT11   // Según el sensor que se use
 
 DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   dht.begin();  // Inicializa el sensor
 }
 
