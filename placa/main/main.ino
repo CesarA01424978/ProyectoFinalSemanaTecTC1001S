@@ -13,9 +13,9 @@ const char* mqttPassword = "";  // Si el servidor requiere contraseña
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-// Configuración del sensor DHT
-#define DHTPIN 13        // Pin digital conectado al DHT
-#define DHTTYPE DHT22    // DHT 22 (AM2302)
+// Define el tipo de sensor y el pin de datos
+#define DHTPIN 4        // Pin al que conectaste el sensor (D4 en este caso)
+#define DHTTYPE DHT11   // Según el sensor que se use
 DHT dht(DHTPIN, DHTTYPE);
 
 // Configuración del sensor de luz
@@ -47,7 +47,7 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Intentando conexión MQTT...");
     // Intentar conectarse al servidor MQTT
-    if (client.connect("ESP32Client", mqttUser, mqttPassword)) {
+    /*if (client.connect("ESP32Client", mqttUser, mqttPassword)) {
       Serial.println("Conectado");
       // Suscribirse a un tema si es necesario
     } else {
@@ -55,15 +55,15 @@ void reconnect() {
       Serial.print(client.state());
       Serial.println(" Intentando de nuevo en 5 segundos");
       delay(5000);
-    }
+    }*/
   }
 }
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600); //Velocidad de baudios
   setup_wifi();
   client.setServer(mqttServer, mqttPort);
-  dht.begin();
+  dht.begin();        //Iniciar el sensor
 }
 
 void loop() {
@@ -75,7 +75,7 @@ void loop() {
   // Leer datos de los sensores
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  int lightLevel = analogRead(lightPin);
+  //int lightLevel = analogRead(lightPin);
 
   // Verificar si los datos están disponibles
   if (isnan(h) || isnan(t)) {
@@ -85,13 +85,13 @@ void loop() {
 
   // Publicar los datos
   String tempPayload = "Temperatura: " + String(t) + " °C";
-  String lightPayload = "Nivel de Luz: " + String(lightLevel);
+  //String lightPayload = "Nivel de Luz: " + String(lightLevel);
 
   client.publish("sensor/temperatura", tempPayload.c_str());
-  client.publish("sensor/luz", lightPayload.c_str());
+  //client.publish("sensor/luz", lightPayload.c_str());
 
   Serial.println(tempPayload);
-  Serial.println(lightPayload);
+  //Serial.println(lightPayload);
 
   // Esperar antes de enviar de nuevo
   delay(2000);
