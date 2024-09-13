@@ -105,5 +105,5 @@ void loop() {
   //Serial.println(lightPayload);
 
   // Esperar antes de enviar de nuevo
-  delay(2000);
+  delay(100);
 }
