@@ -11,13 +11,13 @@ import {
 } from "recharts";
 // Datos de ejemplo
 const data = [
-  { name: "Enero", ventas: 4000 },
-  { name: "Febrero", ventas: 3000 },
-  { name: "Marzo", ventas: 2000 },
-  { name: "Abril", ventas: 2780 },
-  { name: "Mayo", ventas: 1890 },
-  { name: "Junio", ventas: 2390 },
-  { name: "Julio", ventas: 3490 },
+  { id: "1", medicion: 4000 },
+  { id: "2", medicion: 3000 },
+  { id: "3", medicion: 2000 },
+  { id: "4", medicion: 2780 },
+  { id: "5", medicion: 1890 },
+  { id: "6", medicion: 2390 },
+  { id: "7", medicion: 3490 },
 ];
 
 const MyLineChart = () => {
@@ -28,11 +28,11 @@ const MyLineChart = () => {
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="id" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="ventas" stroke="#8884d8" />
+        <Line type="monotone" dataKey="medicion" stroke="#8884d8" />
       </LineChart>
     </ResponsiveContainer>
   );

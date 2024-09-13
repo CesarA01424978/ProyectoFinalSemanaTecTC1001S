@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Sensores con MQTT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 20px;
+        }
+        .data-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin-top: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .data-value {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Datos de Sensores desde MQTT</h1>
+    <div class="data-container">
+        <p>Luz: <span id="luz">--</span></p>
+        <p>Temperatura: <span id="temperatura">--</span> °C</p>
+    </div>
+
+    <!-- Incluye la librería MQTT de Eclipse Paho -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+
+    <script>
+        // Configuración del cliente MQTT
+        const broker = "ws://54.146.179.44";     // Cambia con la IP y el puerto del broker MQTT
+        const topicHumedad = "sensor/humedad";         // Tema MQTT para la luz
+        const topicTemperatura = "sensor/temperatura";  // Tema MQTT para la temperatura
+
+        // Crear un cliente MQTT
+        const client = new Paho.MQTT.Client(broker, "" + Math.random().toString(16).substr(2, 8));
+
+        // Función que se llama cuando se conecta exitosamente al broker MQTT
+        client.onConnectionLost = function (responseObject) {
+            if (responseObject.errorCode !== 0) {
+                console.log("Conexión perdida: " + responseObject.errorMessage);
+            }
+        };
+
+        // Función que se llama cuando se recibe un mensaje desde el broker MQTT
+        client.onMessageArrived = function (message) {
+            console.log("Mensaje recibido en el tema " + message.destinationName + ": " + message.payloadString);
+
+            // Actualizar los valores en la página según el tema del mensaje recibido
+            if (message.destinationName === topicHumedad) {
+                document.getElementById('luz').textContent = message.payloadString;
+            } else if (message.destinationName === topicTemperatura) {
+                document.getElementById('temperatura').textContent = message.payloadString;
+            }
+        };
+
+        // Conectar al broker MQTT
+        client.connect({
+            onSuccess: function () {
+                console.log("Conectado al broker MQTT");
+                // Suscribirse a los temas relevantes
+                client.subscribe(topicHumedad);
+                client.subscribe(topicTemperatura);
+            },
+            onFailure: function (error) {
+                console.log("Error al conectar: " + error.errorMessage);
+            },
+            useSSL: false  // Cambia a true si usas SSL/TLS
+        });
+    </script>
+</body>
+</html>

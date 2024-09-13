@@ -1,42 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import mqtt from 'mqtt'; // Importa la biblioteca MQTT
+import React, { useEffect, useState } from 'react';
+import mqtt from 'mqtt';
 
-const MQTTChartComponent = () => {
-  const [data, setData] = useState([]); // Estado para almacenar datos de sensores
+const MQTTComponent = () => {
+  const [temperatureData, setTemperatureData] = useState([]);
+  const [humidityData, setHumidityData] = useState([]);
+  const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
+  const [temperatura,setTemperatura] = useState([]);
+  const options = {
+    clientId,
+    clean: true,
+    connectTimeout: 4000,
+    username: '',
+    password: '',
+    reconnectPeriod: 1000,
+  };
+
+  const mqttClient = mqtt.connect('ws://52.54.12.21:9001', options);
 
   useEffect(() => {
-    // Conéctate al broker MQTT en tu EC2
-    console.log("Hola")
-    const mqttClient = mqtt.connect('http://54.146.179.44:1883'); // Cambia la IP y el puerto a los de tu broker
-    console.log("Hola 2")
+
     mqttClient.on('connect', () => {
-      console.log('Conectado al broker MQTT en EC2');
-      mqttClient.subscribe('sensor/temperature', (err) => {
-        if (err) {
-          console.error('Error al suscribirse al tema:', err);
+      console.log('Connected to MQTT broker on EC2');
+
+
+      mqttClient.subscribe('sensor/temperatura', { qos: 1 }, (error) => {
+        if (error) {
+          console.log('Error subscribing to topic:', error);
         } else {
-          console.log('Suscripción exitosa al tema sensor/temperature');
+          console.log('Subscribed to topic: sensor/humedad');
         }
       });
     });
 
+    // Handle incoming messages
     mqttClient.on('message', (topic, message) => {
-      const sensorData = JSON.parse(message.toString());
-      setData((prevData) => [...prevData, sensorData]);
-    });
-
-    return () => {
-      if (mqttClient) {
-        mqttClient.end();
+      console.log(topic,message.toString());
+      
+      if (topic === 'sensor/temperatura') {
+        setTemperatureData((prev) => [...prev, parseFloat(message.toString())]);
+      } else if (topic === 'sensor/humedad') {
+        setHumidityData((prev) => [...prev, parseFloat(message.toString())]);
       }
+    });
+    // Cleanup on component unmount
+    console.log(temperatureData)
+    return () => {
+      mqttClient.end();
     };
-  }, []);
+  }, [mqttClient]);
   return (
     <div>
-      <h1>Real-time Sensor Data</h1>
-      
+      <h2>Temperature Data</h2>
+      <h2>Humidity Data</h2>
     </div>
   );
 };
 
-export default MQTTChartComponent;
+export default MQTTComponent;
