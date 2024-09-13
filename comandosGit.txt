@@ -4,3 +4,4 @@ git commit -m "comentario"	= añadir un comentario de los cambios
 git push origin "ramaDestino"	= subir los archivos a github
 git pull			= bajar los cambios antes de editar
 git checkout "ramaDestino"	= cambio de rama
+git merge "ramaParaUnir"	= (desde el main) para unir las ramas
