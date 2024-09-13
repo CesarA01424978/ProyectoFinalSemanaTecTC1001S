@@ -1,7 +1,7 @@
 #include <DHT.h>
 
 // Define el tipo de sensor y el pin de datos
-#define DHTPIN 35        // Pin al que conectaste el sensor (D4 en este caso)
+#define DHTPIN 4        // Pin al que conectaste el sensor (D4 en este caso)
 #define DHTTYPE DHT11   // Según el sensor que se use
 
 DHT dht(DHTPIN, DHTTYPE);

@@ -3,8 +3,8 @@
 #include <DHT.h>
 
 // Configuración del WiFi y MQTT
-const char* ssid = "Galaxy A55 5G 1BE3";            // Nombre Wifi
-const char* password = "2sf7rnhk3czgt9h";           // Reemplaza con tu contraseña
+const char* ssid = "Lalo :)";            // Nombre Wifi
+const char* password = "lalocool";           // Reemplaza con tu contraseña
 //const char* ssid = "Samsung Galaxy";            // Nombre Wifi
 //const char* password = "98765432";           // Reemplaza con tu contraseña
 const char* mqttServer = "54.146.179.44";      // Reemplaza con tu servidor MQTT
@@ -16,7 +16,7 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 
 // Define el tipo de sensor y el pin de datos
-#define DHTPIN 35        // Pin al que conectaste el sensor (D4 en este caso)
+#define DHTPIN 4        // Pin al que conectaste el sensor (D4 en este caso)
 #define DHTTYPE DHT11   // Según el sensor que se use
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -49,7 +49,7 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Intentando conexión MQTT...");
     // Intentar conectarse al servidor MQTT
-    /*if (client.connect("ESP32Client", mqttUser, mqttPassword)) {
+    if (client.connect("ESP32Client", mqttUser, mqttPassword)) {
       Serial.println("Conectado");
       // Suscribirse a un tema si es necesario
     } else {
@@ -57,7 +57,7 @@ void reconnect() {
       Serial.print(client.state());
       Serial.println(" Intentando de nuevo en 5 segundos");
       delay(5000);
-    }*/
+    }
   }
 }
 
@@ -86,13 +86,22 @@ void loop() {
   }
 
   // Publicar los datos
-  String tempPayload = "Temperatura: " + String(t) + " °C";
+  String tempPayload = "Temperatura: " + String(t);
+  String humPayload = "Humedad: " + String(h);
+
   //String lightPayload = "Nivel de Luz: " + String(lightLevel);
 
-  client.publish("sensor/temperatura", tempPayload.c_str());
+  //client.publish("sensor/temperatura_Text", tempPayload.c_str());
+  //client.publish("sensor/humedad_Text", humPayload.c_str());
+  client.publish("sensor/temperatura", String(t).c_str());
+  client.publish("sensor/humedad", String(h).c_str());
+
+  //client.publish("sensor/temperatura", t);
   //client.publish("sensor/luz", lightPayload.c_str());
 
   Serial.println(tempPayload);
+  Serial.println(humPayload);
+
   //Serial.println(lightPayload);
 
   // Esperar antes de enviar de nuevo
