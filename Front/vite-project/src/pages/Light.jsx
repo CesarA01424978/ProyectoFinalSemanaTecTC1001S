@@ -67,7 +67,7 @@ const  Light = () => {
                 </div>
             </div>
             <div className="Light-text">
-                <p>Última medicion: {isNaN(parseFloat(message.toString())) ? 0 : parseFloat(message.toString())}</p>
+              
             </div>
         </div>
     </div>

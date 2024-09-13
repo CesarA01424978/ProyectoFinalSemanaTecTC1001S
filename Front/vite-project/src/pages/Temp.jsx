@@ -62,14 +62,13 @@ const  Temp = () => {
             <div className="Temp-Image-inner">
                 <div className="Temp-Icon">
                     <div className="Temp-Raya">
-                        <div style={{ height: (isNaN(parseFloat(message.toString())) ? 0 : parseFloat(message.toString())) * 3 }} className="Temp-Raya-level"></div>
+                    
                     </div>
                     <div className="Temp-bolita">
                     </div>
                 </div>
             </div>
             <div className="Temp-text">
-                <p>Última medicion: {isNaN(parseFloat(message.toString())) ? 0 : parseFloat(message.toString())} °C</p>
             </div>
         </div>
     </div>
