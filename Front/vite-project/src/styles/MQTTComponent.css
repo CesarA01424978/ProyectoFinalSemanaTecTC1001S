@@ -1,5 +1,8 @@
 .grafica-temp{
     width: 500px;
     height: 200px;
-
+}
+.Temp-div{
+    height: 250px;
+    margin-bottom: 10px;
 }

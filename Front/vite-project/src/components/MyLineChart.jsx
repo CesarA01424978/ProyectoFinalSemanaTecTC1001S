@@ -16,7 +16,7 @@ const MyLineChart = ({ data }) => {
   }, [data]); // Agregar `data` como dependencia
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width={500} height={250}>
       <LineChart
         data={data}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}

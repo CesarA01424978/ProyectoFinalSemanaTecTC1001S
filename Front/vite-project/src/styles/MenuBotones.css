@@ -32,6 +32,9 @@
     width: 85%;
     height: 90%;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .Imagen-messi{
     width: 100%;
