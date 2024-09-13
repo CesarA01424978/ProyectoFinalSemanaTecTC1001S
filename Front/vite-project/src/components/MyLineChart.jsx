@@ -9,7 +9,6 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
 // Datos de ejemplo
 const data = [
   { name: "Enero", ventas: 4000 },
