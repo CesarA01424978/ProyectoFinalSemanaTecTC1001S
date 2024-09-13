@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import "../styles/MenuBotones.css"
 import Temp from '../pages/Temp';
 import Light from '../pages/Light';
+import MQTTComponent from './MQTTComponent';
+
 const  MenuBotones =() => {  
     const [opcion, setOpcion] = useState(0);
     return (
@@ -13,7 +15,7 @@ const  MenuBotones =() => {
                 </div>
                 <div className='MenuBotones-display'>
                     <div className='MenuBotones-display-inner'>
-                    {opcion === 0 && <p>Hola</p>}
+                    {opcion === 0 && <MQTTComponent/>}
                     {opcion === 1 && <Temp/>}
                     {opcion === 2 && <Light/>}
                     </div>
