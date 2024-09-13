@@ -31,9 +31,7 @@ arduino avr Boards
 INSTALACIÓN
 Clona el repositorio del proyecto en tu máquina local:
 Copiar código
-git clone https://github.com/tu-usuario/proyecto-humedad-temperatura.git
-
-Abre el proyecto en Visual Studio Code o en Arduino IDE.
+git clone https://github.com/CesarA01424978/ProyectoFinalSemanaTecTC1001S.git
 
 Instala las librerías necesarias desde el Administrador de Librerías de Arduino.
 
